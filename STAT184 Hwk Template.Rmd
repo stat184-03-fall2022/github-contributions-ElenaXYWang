@@ -1,7 +1,7 @@
 ---
 title: "STAT 184 Homework Exercises" 
 subtitle: "DataComputing Chapters 5 & 6"
-author: "Your Name"
+author: Xiaoying Wang
 output: html_notebook
 ---
 
@@ -75,12 +75,24 @@ ggplot(CPS85) +
 
 ### Problem 6.1
 
-1. 
+1. There are four facets, which are 1433B,1433E,1433G, and 1433Z
+2.The frames are the same in each facet since they have the same x-axis and y-axis. x-axis represent the suspension growth and y-axis adhesion growth.
+3.First is the suspension growth which is between different amount time which are 0, 10, 30, 60 min. Second is that different size of percentage have different segment length on the curve. Third is that it have different point to represent different data.
+
+### Problem 6.3
+1. First glyph is red dot on the black line and the other is the number next to it said 1443G. 1443G indicate what the protein is and the red dot represent the center of the protein. Second glyph is the stars which indicate the signif of the protein.
+2. log2 ratio low vs high cell density is the y variable and different type of protein is the x variable.
+3. Yes
+4. They put the variable name on the x and y axis and different color distinguish different kind of the proteins.
 
 
-
-
-
-
-[and so forth...]
-
+### Problem 6.5
+b
+### Problem 6.6
+d
+### Problem 6.7
+c
+### Problem 6.8
+a.c.e
+### Problem 6.9
+From this chart, we can know that the bmi is on the x axis and weight is on the y axis. different color represent if they are the smoker. From the chart, we can see that there is a positive relationship between bmi and weight since the increase of bmi lead to an increase of weight. Most people's bmi is between 15 to 45 with the weight between 10 to 110.
