@@ -28,15 +28,59 @@ library(tidyverse)
 
 ### Problem 5.2
 
+```{r}
+install.packages("esquisse")
+
+library(ggplot2)
+
+
+
+NCHS <- dcData::NCHS
+library(ggplot2)
+
+ggplot(NCHS) +
+ aes(x = bmi, colour = sex) +
+ geom_density(adjust = 1L, fill = "#112446") +
+ scale_color_hue(direction = 1) +
+ theme_light() +
+ facet_wrap(vars(pregnant))
+
+```
+
+
 
 ### Problem 5.3
 
-[and so forth...]
+
+```{r}
+
+install.packages("esquisse")
+
+library(ggplot2)
+CPS85 <- mosaicData::CPS85
+
+
+ggplot(CPS85) +
+ aes(x = exper, y = wage, colour = married) +
+ geom_jitter(size = 1.5) +
+ scale_color_hue(direction = 1) +
+ theme_minimal() +
+ facet_wrap(vars(sector), nrow = 2L) +
+ ylim(1, 30)
+
+```
 
 
 ## Chapter 6 Exercises
 
 ### Problem 6.1
+
+1. 
+
+
+
+
+
 
 [and so forth...]
 
