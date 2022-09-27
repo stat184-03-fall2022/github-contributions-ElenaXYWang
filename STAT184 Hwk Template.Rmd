@@ -1,98 +1,98 @@
 ---
 title: "STAT 184 Homework Exercises" 
-subtitle: "DataComputing Chapters 5 & 6"
+subtitle: "DataComputing Chapters 7"
 author: Xiaoying Wang
 output: html_notebook
 ---
 
 ## Assigned Exercises
 
-- DC Chapter 5 Exercises:   5.2/5.3
-- DC Chapter 6 Exercises:   6.1/6.3/6.5/6.6/6.7/6.8/6.9
+- DC Chapter 7 Exercises: 7.3/7.5/7.6/7.7/7.8
 
 ## Front Matter
 
 ```{r}
-# clean up workspace environment
-rm(list = ls())
 
 # all packages used for the assignment
-library(mosaic)
+library(dcData)
 library(tidyverse)
-
+library(mosaic)
 ```
 
-
-
-## Chapter 5 Exercises
-
-### Problem 5.2
-
+### Problem 7.3
+1. There are 80101 cases in the cases
+2. Top five is BESTY HODGES(14399), DON SAMUELS(14170),MARK ANDREW(12757),undervote(10598), JACKIE CHERRYHOMES(6470)
+3. There are 834 ballots in First choice selections
+There are 10598 ballots in Second choice selections
+There are 19210 ballots in Third choice selections
+4. 
+5. P-06 had the highest number of ballots cast
 ```{r}
-install.packages("esquisse")
-
-library(ggplot2)
-
-
-
-NCHS <- dcData::NCHS
-library(ggplot2)
-
-ggplot(NCHS) +
- aes(x = bmi, colour = sex) +
- geom_density(adjust = 1L, fill = "#112446") +
- scale_color_hue(direction = 1) +
- theme_light() +
- facet_wrap(vars(pregnant))
+Minneapolis2013 %>%
+  group_by(Second) %>%
+  summarise(votes = n()) %>%
+  arrange(desc(votes))
 
 ```
-
-
-
-### Problem 5.3
-
-
 ```{r}
+Minneapolis2013 %>%
+  group_by(First) %>%
+  filter(First=="undervote") %>%
+  nrow()
 
-install.packages("esquisse")
-
+```
+```{r}
+Minneapolis2013 %>%
+  group_by(Second) %>%
+  filter(Second=="undervote") %>%
+  nrow()
+```
+```{r}
+Minneapolis2013 %>%
+  group_by(Third) %>%
+  filter(Third=="undervote") %>%
+  nrow()
+```
+```{r}
+Minneapolis2013 %>%
+  group_by(Precinct) %>%
+  summarise(votes = n()) %>%
+  arrange(desc(votes))
+```
+### Problem 7.6
+```{r}
+library(esquisse)
+library(dplyr)
 library(ggplot2)
-CPS85 <- mosaicData::CPS85
 
-
-ggplot(CPS85) +
- aes(x = exper, y = wage, colour = married) +
- geom_jitter(size = 1.5) +
- scale_color_hue(direction = 1) +
- theme_minimal() +
- facet_wrap(vars(sector), nrow = 2L) +
- ylim(1, 30)
+ZipGeography %>%
+ filter(!(Timezone %in% " ") | is.na(Timezone)) %>%
+ ggplot() +
+ aes(x = LandArea, y = Population) +
+ geom_point(shape = "circle", size = 1.5, colour = "#112446") +
+ theme_minimal()
 
 ```
 
+#Problem 7.7
+```{r}
+  Patients %>%
+  group_by(sex) %>%
+  summarise(count = n(), meanAge = mean(age))
+```
 
-## Chapter 6 Exercises
+a. The variable appear in output that group the patients by sex and the mean age in category of sex
 
-### Problem 6.1
+#Problem 7.8
+1. There is a positive relationship between Foreignborn in a zip code and the number who speakalanguageotherthanEnglishathome5yearsandover. Higher Foriegnborn in a zip code, the higher number who speak a language other than English at home 5 years and over 
+```{r} 
+library(esquisse)
+library(ggplot2)
 
-1. There are four facets, which are 1433B,1433E,1433G, and 1433Z
-2.The frames are the same in each facet since they have the same x-axis and y-axis. x-axis represent the suspension growth and y-axis adhesion growth.
-3.First is the suspension growth which is between different amount time which are 0, 10, 30, 60 min. Second is that different size of percentage have different segment length on the curve. Third is that it have different point to represent different data.
+ggplot(ZipDemography) +
+ aes(x = Foreignborn, y = SpeakalanguageotherthanEnglishathome5yearsandover) +
+ geom_point(shape = "circle", size = 1.5, colour = "#112446") +
+ theme_minimal()
 
-### Problem 6.3
-1. First glyph is red dot on the black line and the other is the number next to it said 1443G. 1443G indicate what the protein is and the red dot represent the center of the protein. Second glyph is the stars which indicate the signif of the protein.
-2. log2 ratio low vs high cell density is the y variable and different type of protein is the x variable.
-3. Yes
-4. They put the variable name on the x and y axis and different color distinguish different kind of the proteins.
+```
 
-
-### Problem 6.5
-b
-### Problem 6.6
-d
-### Problem 6.7
-c
-### Problem 6.8
-a.c.e
-### Problem 6.9
-From this chart, we can know that the bmi is on the x axis and weight is on the y axis. different color represent if they are the smoker. From the chart, we can see that there is a positive relationship between bmi and weight since the increase of bmi lead to an increase of weight. Most people's bmi is between 15 to 45 with the weight between 10 to 110.
