@@ -1,0 +1,108 @@
+---
+title: "STAT 184 Homework Exercises" 
+subtitle: "DataComputing Chapters 7"
+author: Xiaoying Wang
+output: html_notebook
+---
+
+## Assigned Exercises
+
+- DC Chapter 7 Exercises: 7.3/7.5/7.6/7.7/7.8
+
+## Front Matter
+
+```{r}
+
+# all packages used for the assignment
+library(dcData)
+library(tidyverse)
+library(mosaic)
+```
+
+### Problem 7.3
+1. There are 80101 cases in the cases
+2. Top five is BESTY HODGES(14399), DON SAMUELS(14170),MARK ANDREW(12757),undervote(10598), JACKIE CHERRYHOMES(6470)
+3. There are 834 ballots in First choice selections
+There are 10598 ballots in Second choice selections
+There are 19210 ballots in Third choice selections
+4. 
+5. P-06 had the highest number(9711)of ballots cast
+```{r}
+Minneapolis2013 %>%
+  group_by(Second) %>%
+  summarise(votes = n()) %>%
+  arrange(desc(votes))
+
+```
+```{r}
+Minneapolis2013 %>%
+  group_by(First) %>%
+  filter(First=="undervote") %>%
+  nrow()
+
+```
+```{r}
+Minneapolis2013 %>%
+  group_by(Second) %>%
+  filter(Second=="undervote") %>%
+  nrow()
+```
+```{r}
+Minneapolis2013 %>%
+  group_by(Third) %>%
+  filter(Third=="undervote") %>%
+  nrow()
+```
+
+```{r}
+Minneapolis2013 %>%
+  group_by(First,Second) %>%
+  summarise(votes = n()) %>%
+  arrange(desc(votes))
+```
+
+
+
+```{r}
+Minneapolis2013 %>%
+  group_by(Precinct) %>%
+  summarise(votes = n()) %>%
+  arrange(desc(votes))
+```
+### Problem 7.6
+```{r}
+library(esquisse)
+library(dplyr)
+library(ggplot2)
+
+ZipGeography %>%
+ filter(!(Timezone %in% " ") | is.na(Timezone)) %>%
+ ggplot() +
+ aes(x = LandArea, y = Population, colour = State) +
+ geom_point(shape = "circle", 
+ size = 1.5) +
+ scale_color_hue(direction = 1) +
+ theme_minimal()
+```
+
+#Problem 7.7
+```{r}
+  Patients %>%
+  group_by(sex) %>%
+  summarise(count = n(), meanAge = mean(age))
+```
+
+a. The variable appear in output that group the patients by sex and the mean age in category of sex
+
+#Problem 7.8
+1. There is a positive relationship between Foreignborn in a zip code and the number who speakalanguageotherthanEnglishathome5yearsandover. Higher Foriegnborn in a zip code, the higher number who speak a language other than English at home 5 years and over 
+```{r} 
+library(esquisse)
+library(ggplot2)
+
+ggplot(ZipDemography) +
+ aes(x = Foreignborn, y = SpeakalanguageotherthanEnglishathome5yearsandover) +
+ geom_point(shape = "circle", size = 1.5, colour = "#112446") +
+ theme_minimal()
+
+```
