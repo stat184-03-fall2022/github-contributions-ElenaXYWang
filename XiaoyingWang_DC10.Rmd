@@ -38,7 +38,7 @@ e. group_by() mark a data table as grouped by one or more categorical variables.
 a. From the chart given, we can see that the number of the cases didn't decrease. We can see that the only thing change is the count. It arrange in a descending way so we can use arrange to make the output table A.
 ```{r}
 BabyNames %>%
-  arrange(count) %>%
+  arrange(count)
 
 ```
 
@@ -65,7 +65,7 @@ The only case here is the total We need total number of the count so we need to 
 BabyNames%>%
   summarise(total=sum(count,na.rm=TRUE))
 ```
-e. The case will not change, however, there are only two variable here which are name and count. Therefore, select() these two variables, name and count from the raw data to give the output table F.
+e. The case will not change, however, there are only two variable here which are name and count. Therefore, select() these two variables, name and count from the raw data to give the output table E.
 ```{r}
 BabyNames%>%
   select(name,count)
