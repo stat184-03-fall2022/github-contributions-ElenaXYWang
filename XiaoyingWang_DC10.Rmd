@@ -1,0 +1,131 @@
+---
+title: "STAT 184 Homework Exercises" 
+subtitle: "DataComputing Chapters 10"
+author: Xiaoying Wang
+output: html_notebook
+---
+
+## Assigned Exercises
+
+- DC Chapter 7 Exercises: 10.3, 10.4, 10.5, 10.6
+
+## Front Matter
+
+```{r}
+
+# all packages used for the assignment
+library(dcData)
+library(tidyverse)
+library(mosaic)
+library(ggplot2)
+```
+
+### Problem 10.3
+
+a. nrow() function can count the number of cases in a data table.
+
+b. names() list the names of the variables in a data table.
+
+c. Help() display the documentation (“codebook”) for the data table.
+
+d. library() load a package into my R session.
+
+e. group_by() mark a data table as grouped by one or more categorical variables.
+
+
+### Problem 10.4
+
+a. From the chart given, we can see that the number of the cases didn't decrease. We can see that the only thing change is the count. It arrange in a descending way so we can use arrange to make the output table A.
+```{r}
+BabyNames %>%
+  arrange(count) %>%
+
+```
+
+
+
+b. 
+The number of cases decreases, and the sex column will only have Female. So  all cases that contain male in their sex column need to be removed. Therefore, filter the sex "F" will give us the output table B.
+
+```{r}
+BabyNames %>%
+  filter(sex=="F") 
+
+```
+c. 
+Similar as the number of cases decreases, and the sex column will only have male. So  all cases that contain male in their sex column need to be removed. Therefore, filter the sex "M" will give us the output table B.
+
+```{r}
+BabyNames %>%
+  filter(sex=='M')
+```
+d.
+The only case here is the total We need total number of the count so we need to calculate the total number of the count. As a result, the sum() function will give us the answer.
+```{r}
+BabyNames%>%
+  summarise(total=sum(count,na.rm=TRUE))
+```
+e. The case will not change, however, there are only two variable here which are name and count. Therefore, select() these two variables, name and count from the raw data to give the output table F.
+```{r}
+BabyNames%>%
+  select(name,count)
+```
+
+
+
+
+
+### Problem 10.5
+
+a.
+There are 1210 choose the same candidate for both First and Second place. Since we don't want the under vote and over vote. As a result, we use filter() to filter the undervote and overvote. Then we can set First==Second to find the people satisfy our stipulation. Finally, we use nrow() to find the number of the case.
+```{r}
+Minneapolis2013%>%
+  filter(First!='undervote'&First!='overvote'&First==Second) %>%
+  nrow()
+
+```
+
+
+b.
+We use the same people of the before table. Since the case of First and second is the same, I groupby the data use First. Then we summarise the count and then arrange it in the descending way so that we can have a sequence from the higher count to lower count. Finally, we use head() to find the top three choice. As a result, the first three name is "MARK ANDREW", "BETSY HODGES", and "DON DSMUELS"
+```{r}
+Minneapolis2013%>%
+  filter(First!='undervote'&First!='overvote'&First==Second)%>%
+  group_by(First)%>%
+  summarise(count=n())%>%
+  arrange(desc(count))%>%
+  head(3)
+```
+
+c.
+First, we use filter function to filter the cases that undervote and overvote, then, we need to find the first vote for OLE SAVIOR so we let first=="OLE SAVIOR", then, we group by second and summarise the total count of the vote. Finally, we use arrange() to get the decending sequence and then use the head to find the top three vote. 
+
+```{r}
+Minneapolis2013%>%
+  filter(First=='OLE SAVIOR'&Second!='undervote'&Second!='overvote')%>%
+  group_by(Second)%>%
+  summarise(count=n())%>%
+  arrange(desc(count))%>%
+  head(3)
+```
+
+
+### Problem 10.6
+
+```{r}
+diamonds %>% 
+  group_by(color) %>% 
+  summarise(average_weight=mean(carat)) %>% 
+  arrange(desc(average_weight)) %>% 
+  head(1)
+```
+```{r}
+diamonds %>% 
+  group_by(clarity) %>% 
+  summarise(average_table=mean(table)) %>% 
+  arrange(desc(average_table)) %>% 
+  head(1)
+```
+
+
