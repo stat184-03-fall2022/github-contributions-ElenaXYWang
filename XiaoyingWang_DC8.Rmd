@@ -24,15 +24,15 @@ library(ggplot2)
 
 
 ### Problem 8.1
-Construct a graphics frame-- ggplot()
+1. Construct a graphics frame-- ggplot()
 
-Add a layer of glyphs -- geom_point(),geom_histogram(),geom_segment()
+2. Add a layer of glyphs -- geom_point(),geom_histogram(),geom_segment()
 
-Set an axis label -- ylab()
+3. Set an axis label -- ylab()
 
-Divide the frame into facets -- facet_grid(), facet_grid()
+4. Divide the frame into facets -- facet_grid(), facet_grid()
 
-Change the scale for the frame -- scale_y_log10()
+5. Change the scale for the frame -- scale_y_log10(), xlim()
 
 
 ###Problem 8.2
