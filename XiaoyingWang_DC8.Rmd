@@ -26,11 +26,11 @@ library(ggplot2)
 ### Problem 8.1
 Construct a graphics frame-- ggplot()
 
-Add a layer of glyphs -- ylab()
+Add a layer of glyphs -- geom_point(),geom_histogram(),geom_segment()
 
-Set an axis label -- xlim()
+Set an axis label -- ylab()
 
-Divide the frame into facets -- facet_grid()
+Divide the frame into facets -- facet_grid(), facet_grid()
 
 Change the scale for the frame -- scale_y_log10()
 
@@ -58,7 +58,7 @@ b).
 CPS85 %>%
   ggplot(aes(x = age, y = wage)) +
   geom_smooth(aes(group = sex, color = sex))+
-  facet_grid( ~ married)
+  facet_wrap( ~ married, strip.position = "right", ncol = 1)
 ```
 
 
@@ -102,7 +102,13 @@ CPS85 %>%
 ```
 
 C).
+```{r}
+CPS85 %>%
+  ggplot(aes(x = age, y = wage, shape= sex)) +
+  geom_point(aes(group = sex))+
+  facet_wrap( ~ married, strip.position = "right",ncol=1)
 
+```
 
 
 
