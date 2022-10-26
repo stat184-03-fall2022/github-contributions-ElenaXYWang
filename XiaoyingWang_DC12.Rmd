@@ -22,7 +22,9 @@ library(ggplot2)
 ```
 
 ### Problem 12.2
+
 1. 
+
 version 1: the case in this version means the name of the sex in that year
 
 version 2: the case in this version means the name in that year 
@@ -71,6 +73,7 @@ I will translate to “Version Two” before using data verbs since the ratio ca
 
 
 ### Problem 12.3
+
 1.
 A versus C: A is wider,  Country expand in three variables Algeria, Brazil, Columbia in Data Frame A in two different year.
 
@@ -83,6 +86,7 @@ A versus B: I think this can not be compared. Since Data frame B expand the vari
 
 
 3.I think Data Frame C is easiest to work with. We create a new variable called Continent to the table. We can use function summarise() and sum()to find the sum.
+We can find the sum of the values from the code below:
 
 DataFrameCNew %>% 
 group_by(Continent)%>% 
