@@ -1,0 +1,92 @@
+---
+title: "STAT 184 Homework Exercises" 
+subtitle: "DataComputing Chapters 12"
+author: Xiaoying Wang
+output: html_notebook
+---
+
+## Assigned Exercises
+
+- DC Chapter 12 Exercises: 12.2, 12.3
+
+
+## Front Matter
+
+```{r}
+
+# all packages used for the assignment
+library(dcData)
+library(tidyverse)
+library(mosaic)
+library(ggplot2)
+```
+
+### Problem 12.2
+1. 
+version 1: the case in this version means the name of the sex in that year
+
+version 2: the case in this version means the name in that year 
+
+version 3:  a case in version three means the name of that sex.
+
+2. 
+The chain of R commands look like below. Since version two have F and M separate, it is wider.
+```{r}
+VersionOne <- BabyNames %>%
+  filter( name %in% c("Ida","Robert","Theresa")) %>%
+  filter(year %in% c(1912,2012)) %>%
+  transmute(name, sex, year, nbabies=count) %>%
+  arrange(year,name)
+
+VersionTwo <- VersionOne %>%
+  pivot_wider(names_from = "sex", values_from = "nbabies") %>%
+  arrange(name)
+
+VersionTwo
+
+```
+
+3. 
+The chain of R commands look like below. Since version three have specific year 1912 and 2012 , it is wider.
+```{r}
+VersionThree <- VersionOne %>%
+  pivot_wider(names_from = "year", values_from = "nbabies")
+
+VersionThree%>%
+  pivot_longer(cols = c("1912","2012"), names_to = "year", values_to = "nbabies") %>%
+  arrange(year,name)%>%
+  na.omit
+```
+
+4. Version Two is easier to use since they use Male and female as two different variables so that it is more easier for data to be calculated.
+
+```{r}
+VersionTwo %>%
+  mutate(ratio=M/F)
+
+```
+
+5. 
+I will translate to “Version Two” before using data verbs since the ratio can't be calculated in version one since M and F is not a separate variable. We need Female and Male to be variables for us to calculate the ratio so I will translate to version two.
+
+
+### Problem 12.3
+1.
+A versus C: A is wider,  Country expand in three variables Algeria, Brazil, Columbia in Data Frame A in two different year.
+
+B versus C: B is wider, Year from Data Frame C derived two specific variables: Y2000, Y2001 in Data Frame B.
+
+A versus B: I think this can not be compared. Since Data frame B expand the variable year into Y2000 and Y2001. However, Data frame A expand the variable country into three different country. In this case, we can't compare which one is wider.
+
+
+2.I think Data Frame B is easier for us to calculate the change from 2000 to 2001. It can be done by mutate() function. Mutate(Change=Y2001-Y2000). From this function, we can easily see the change between two country. 
+
+
+3.I think Data Frame C is easiest to work with. We create a new variable called Continent to the table. We can use function summarise() and sum()to find the sum.
+
+DataFrameCNew %>% 
+group_by(Continent)%>% 
+summarise(count=sum(Value))
+
+
+
