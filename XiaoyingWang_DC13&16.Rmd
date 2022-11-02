@@ -1,0 +1,152 @@
+---
+title: "STAT 184 Homework Exercises" 
+subtitle: "DataComputing Chapters 13 & 16"
+author: Xiaoying Wang
+output: html_notebook
+---
+
+## Assigned Exercises
+
+- DC Chapter 13 & 16 Exercises: 13.1, 13.2, 16.1, 16.2
+
+
+## Front Matter
+
+```{r}
+
+# all packages used for the assignment
+library(dcData)
+library(tidyverse)
+library(mosaic)
+library(ggplot2)
+library(lubridate)
+```
+
+### Problem 13.1
+```{r}
+Babynames %>% 
+  group_by(name) %>%
+  filter(sex=="F") %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total)) %>%
+  head(5)
+  
+```
+```{r}
+Babynames %>% 
+  group_by(name) %>%
+  filter(sex=="M") %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total)) %>%
+  head(5)
+  
+```
+
+### Problem 13.2
+1. 
+```{r}
+TOP100popularname<-Babynames%>%
+  group_by(year, name)%>%
+  summarise(total=sum(count))
+
+Rankings <- TOP100popularname %>%
+  group_by(year) %>%
+  mutate(ranking=ifelse((rank(desc(total))) <= 100,"Top_100", "Below"))
+
+Rankings <- Rankings %>%
+  group_by(year,ranking) %>%
+  summarise(total=sum(total)) %>%
+  arrange(desc(year))
+
+Rankings
+```
+
+2.
+```{r}
+Rankingswide <- Rankings %>%
+  pivot_wider(names_from = ranking,values_from = total)%>%
+  mutate(fraction100=Top_100/(Below + Top_100))
+
+Rankingswide
+```
+
+3.
+
+```{r}
+ggplot(Rankingswide)+
+  aes(x=year,y=fraction100) +
+  geom_line(size=0.5)+
+  theme_bw()%>%
+  labs(title='Fraction Changed Over the Years')
+```
+
+
+
+
+
+### Problem 16.1
+
+1. 
+
+```{r}
+Gauss <- mdy("April 30, 1777")
+Xiaoying <- mdy("April 12, 2002")
+Xiaoying-Gauss
+```
+
+2. 
+```{r}
+Turing <- mdy("06-23-1912")
+Xiaoying - Turing
+```
+
+
+3.
+```{r}
+Bell<- dmy("3 MArch 1874")
+Xiaoying -  Bell
+```
+
+4.
+```{r}
+ww1= mdy_hm("Nov. 11th, 1918 at 11:00 am")
+Xiaoying<- mdy_hm("April. 12th, 2002 at 5:00am")
+Xiaoying - ww1
+```
+
+5.
+```{r}
+Moonlanding = mdy("July 20, 1969")
+Xiaoying <- mdy("April 12, 2002")
+Xiaoying - Moonlanding
+
+```
+
+### Problem 16.2
+
+“42,659.30”
+as.numeric()
+
+“17%”
+readr::parse_number()
+
+“Nineteen”
+Neither of the two are able to convert numbers
+
+“£100”
+readr::parse_number()
+
+“9.8 m/seconds-square”
+readr::parse_number()
+
+“9.8 m/s^2”
+readr::parse_number()
+
+“6.62606957 × 10^-34 m2 kg / s”
+Neither of the two are able to convert numbers
+
+“6.62606957e-34”
+Both are able to convert this string to numeric
+
+“42.659,30” (A European style)
+Neither of the two are able to convert numbers
