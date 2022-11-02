@@ -124,29 +124,38 @@ Xiaoying - Moonlanding
 
 ### Problem 16.2
 
+1. 
 “42,659.30”
 as.numeric()
 
+2.
 “17%”
 readr::parse_number()
 
+3.
 “Nineteen”
 Neither of the two are able to convert numbers
 
+4.
 “£100”
 readr::parse_number()
 
+5.
 “9.8 m/seconds-square”
 readr::parse_number()
 
+6.
 “9.8 m/s^2”
 readr::parse_number()
 
+7.
 “6.62606957 × 10^-34 m2 kg / s”
 Neither of the two are able to convert numbers
 
+8.
 “6.62606957e-34”
 Both are able to convert this string to numeric
 
+9.
 “42.659,30” (A European style)
 Neither of the two are able to convert numbers
