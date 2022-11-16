@@ -51,9 +51,7 @@ Name_endinJoes
 ### Problem 17.4
 part 1: The length that match the pattern will be 2.
 
-Part2: There are 61 different string will match
-
-
+Part2: There are 61 different string will match since there are 61 number of characters inside the square bracket. 
 
 
 ### Problem 17.5
