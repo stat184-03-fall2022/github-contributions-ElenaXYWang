@@ -1,0 +1,136 @@
+---
+title: "STAT 184 Homework Exercises" 
+subtitle: "DataComputing Chapters 17"
+author: Xiaoying Wang
+output: html_notebook
+---
+
+## Assigned Exercises
+
+- DC Chapter 17 Exercises: 17.1 (part 1 & 3), 17.4 (part 1 & 2),  17.5
+
+
+## Front Matter
+
+```{r}
+
+# all packages used for the assignment
+library(dcData)
+library(tidyverse)
+library(mosaic)
+library(ggplot2)
+
+```
+
+### Problem 17.1
+part 1
+```{r}
+BoyName <-
+BabyNames %>%
+filter(sex == 'M'& grepl("[aeiou]$",name, ignore.case = TRUE)) %>%
+group_by(name) %>%
+summarise(total = sum(count)) %>%
+arrange(desc(total)) %>%
+top_n(10)
+
+BoyName
+```
+part 3
+```{r}
+Name_endinJoes <-
+BabyNames %>%
+filter(str_detect(name, "joe$")) %>%
+group_by(name) %>%
+summarise(total = sum(count)) %>%
+arrange(desc(total)) %>%
+top_n(10)
+
+Name_endinJoes
+```
+
+### Problem 17.4
+part 1: The length that match the pattern will be 2.
+
+Part2: There are 61 different string will match
+
+
+
+
+### Problem 17.5
+
+1. The name that have bar like: Barbara, Barry, and Bart
+```{r}
+BibleNames <- 
+  readr::read_csv("https://mdbeckman.github.io/dcSupplement/data/BibleNames.csv")
+NameList <- 
+  BabyNames %>% 
+  group_by(name, sex) %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total)) 
+
+NameList %>%
+  filter(grepl("bar", name, ignore.case = TRUE))
+
+```
+2.The name that have dam like: Adam, Damian, Damon
+```{r}
+NameList <- 
+  BabyNames %>% 
+  group_by(name, sex) %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total)) 
+
+NameList%>%
+  filter(grepl("dam", name, ignore.case = TRUE))
+  
+```
+
+3.The name that have lory like: Mallory, Glory, Lory
+```{r}
+NameList <- 
+  BabyNames %>% 
+  group_by(name, sex) %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total)) 
+
+NameList%>%
+  filter(grepl("lory", name, ignore.case = TRUE))
+```
+1. Name end with Bar like: Ambar, Jabbar, Akbar
+```{r}
+NameList <- 
+  BabyNames %>% 
+  group_by(name, sex) %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total)) 
+
+
+NameList %>%
+  filter( grepl( "bar$", name ) ) 
+```
+
+2. Name end with dam like: Adam, Addam, and Saddam
+```{r}
+NameList <- 
+  BabyNames %>% 
+  group_by(name, sex) %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total)) 
+
+
+NameList %>%
+  filter( grepl( "dam$", name ) ) 
+```
+3. Name end with lory like: Mallory, Glory, Malory
+```{r}
+NameList <- 
+  BabyNames %>% 
+  group_by(name, sex) %>%
+  summarise(total = sum(count)) %>%
+  arrange(desc(total)) 
+
+
+NameList %>%
+  filter( grepl( "lory$", name ) ) 
+```
+
