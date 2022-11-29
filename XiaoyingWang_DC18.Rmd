@@ -1,0 +1,64 @@
+---
+title: "STAT 184 Homework Exercises" 
+subtitle: "DataComputing Chapters 17"
+author: Xiaoying Wang
+output: html_notebook
+---
+
+## Assigned Exercises
+
+- DC Chapter 18 Exercises: 18.1, 18.2
+
+## Front Matter
+
+```{r}
+
+# all packages used for the assignment
+library(dcData)
+library(tidyverse)
+library(mosaic)
+library(ggplot2)
+install.packages("party")
+
+```
+
+### 18.1 
+
+1. there are four variables: Living_area, bathrooms, bedrooms, and fireplaces
+
+2. No. For houses with a living area less than 1080 square feet,  the number of bathrooms does not make a difference in price. From the chart we can see that node 4 represent that the number of bathrooms does not change the price of the house.
+
+3. For houses with living area between 1080 and 1483 sq ft, we need to look node7 and 6. the typical price difference between houses with one and half bathroom and 2 bathroom is: 179796.647- 151424.497= 28372.15
+
+4. Fireplaces is associated with a higher house price. However, only affect the price that have the living area larger than 2816. 
+
+
+
+
+### 18.2
+
+1. From this model, I choose the variable: age and chol. The answer of the log_likelihood is -3786.019 which is bigger than mod1 which is -4450.636.
+```{r}
+CompleteCases <- 
+  NCHS %>%
+  select(diabetic, weight, age, bmi, chol, smoker) %>%
+  na.omit() 
+
+mod2 <- party::ctree(diabetic ~ age + bmi, data = CompleteCases)
+
+CompleteCases %>%
+  mutate(probability = as.numeric(predict(mod1)), 
+         likelihood = ifelse(diabetic, probability, 1-probability)) %>%
+  summarise(log_likelihood = sum(log(likelihood)))
+```
+2. 
+```{r}
+plot(mod2, type = "simple")
+
+```
+3. 
+In my model, node 27 marks a group with a 36.8% which is the highest risk of diabetes. On the other words, the age of people is larger than 60 with bmi larger than 35.349 associated with highest risk of diabetes according to the NCHS data. 
+
+
+4. In my model, node 5 marks a group with a 0.2% which is the lowest risk of diabetes. On the other words, the age of people is less than 36 with bmi smaller and equal than 23 associated with lowest risk of diabetes according to the NCHS data. 
+
